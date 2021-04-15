@@ -1,0 +1,3 @@
+machine gitlab.eng.vmware.com
+login <user>
+password <pass>>

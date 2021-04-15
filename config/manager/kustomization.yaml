@@ -1,0 +1,13 @@
+resources:
+- manager.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: controller
+  newName: harbor-repo.vmware.com/dockerhub-proxy-cache/warroyo90/nsxt-tag-controller
+  newTag: 1.0.0
+secretGenerator:
+- envs:
+  - env.txt
+  name: nsxt-tag-controller-secret
+  type: Opaque

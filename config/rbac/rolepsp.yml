@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: nsxt-tag-controller:psp
+  namespace: system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: wcp-privileged-psp
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: system
