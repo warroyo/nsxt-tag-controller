@@ -32,6 +32,21 @@ This controllers goal is to read labels from the `tkc` clusters and propogate th
 8. validate its running
 9. remove the above role binding `kubectl delete -f https://gist.githubusercontent.com/warroyo/9984a4e7ec1ee667153613153c8670ea/raw/58271b688583bd1f5c4feeecfeec014913d8277a/override-rbac.yml`
 
+
+## Usage
+
+after deploying the controller  it will watch for changes on `tkc` objects. it will only update tags in nsxt if the label has the prefix of `policytag/`
+
+1. edit a tkc and add a new label with a prefix of `policytag/`
+
+ex.
+```yaml
+labels:
+  policytag/hello: world
+```
+
+2. you should see tags/scopes updated on the segment in nsxt
+
 ## Building
 
 ### Build docker image
