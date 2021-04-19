@@ -19,6 +19,7 @@ package controllers
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/go-logr/logr"
@@ -81,31 +82,37 @@ func (r *TanzuKubernetesClusterReconciler) Reconcile(req ctrl.Request) (ctrl.Res
 		r.Log.Info(err.Error())
 	}
 	tags := segment.Tags
+	var newTags []model.Tag
+	// collect the current tags on the segment so we can get rid of any that are no longer requested
+	for _, value := range tags {
+		if !strings.Contains(*value.Scope, "ntc/") {
+			item := model.Tag{
+				Scope: value.Scope,
+				Tag:   value.Tag,
+			}
+			newTags = append(newTags, item)
+		}
+	}
+
+	// collect the current labels on the cluster
 	for key, value := range tkCluster.Labels {
-		if strings.Contains(key, "policytag/") {
-			scope := strings.ReplaceAll(key, "policytag/", "")
+		if strings.Contains(key, "ntc/") {
+			scope := key
 			tag := value
 			item := model.Tag{
 				Scope: &scope,
 				Tag:   &tag,
 			}
-			add := true
-			for _, i := range segment.Tags {
-				if scope == *i.Scope && tag == *i.Tag {
-					add = false
-				}
-			}
-			if add {
-				tags = append(tags, item)
-			}
 
+			newTags = append(newTags, item)
 		}
+
 	}
 
-	if len(tags) > len(segment.Tags) {
+	if !reflect.DeepEqual(segment.Tags, newTags) {
 		r.Log.Info(fmt.Sprintf("updating tags on %s", cluster))
 		obj := model.Segment{
-			Tags: tags,
+			Tags: newTags,
 		}
 
 		err = client.Patch(nsxsegmentid, obj)

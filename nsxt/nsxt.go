@@ -40,7 +40,7 @@ func GetPolicyConnector(clients interface{}) *sdkclient.RestConnector {
 	if c.PolicySecurityContext != nil {
 		connector.SetSecurityContext(c.PolicySecurityContext)
 	}
-	connector.
+
 	return connector
 }
 
