@@ -26,7 +26,7 @@ This controllers goal is to read labels from the `tkc` clusters and propogate th
 2. clone this repo to your desktop
 3. cp `config/manager/env-sample.txt` `config/manager/env.txt`
 4. update the values in the `env.txt` file
-5. pull down the latest version of this image `warroyo90/nest-tag-controller:<version>` and move into your local repo or use a proxy cache
+5. pull down the latest version of this image `warroyo90/nsxt-tag-controller:<version>` and move into your local repo or use a proxy cache
 6. `export IMG=<path to the image>`
 7. `make deploy`
 8. validate its running
