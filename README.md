@@ -35,14 +35,14 @@ This controllers goal is to read labels from the `tkc` clusters and propogate th
 
 ## Usage
 
-after deploying the controller  it will watch for changes on `tkc` objects. it will only update tags in nsxt if the label has the prefix of `policytag/`
+after deploying the controller  it will watch for changes on `tkc` objects. it will only update tags in nsxt if the label has the prefix of `ntc/`
 
-1. edit a tkc and add a new label with a prefix of `policytag/`
+1. edit a tkc and add a new label with a prefix of `ntc/`
 
 ex.
 ```yaml
 labels:
-  policytag/hello: world
+  ntc/hello: world
 ```
 
 2. you should see tags/scopes updated on the segment in nsxt
