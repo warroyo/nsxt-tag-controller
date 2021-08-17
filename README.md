@@ -37,6 +37,7 @@ This controllers goal is to read labels from the `tkc` clusters and propogate th
 
 after deploying the controller  it will watch for changes on `tkc` objects. it will only update tags in nsxt if the label has the prefix of `ntc/`
 
+
 1. edit a tkc and add a new label with a prefix of `ntc/`
 
 ex.
@@ -45,18 +46,18 @@ labels:
   ntc/hello: world
 ```
 
-2. you should see tags/scopes updated on the segment in nsxt
+2. you should see tags/scopes updated on the segment in nsxt. we are mapping the label's key to an NSXt `scope` and the label value to an NSXt `tag`
 
 ## Building
 
 ### Build docker image
 
 1. `cp .netrc-sample .netrc` and update with creds
-2. `export IMG=<your-image-name>`
+2. `export IMG=<your-image-name>`ß
 3. `make docker-build`
 
 
-### Build locally
+### Build locallyß
 
 1. `make`
 
